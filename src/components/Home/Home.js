@@ -1,7 +1,6 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
 
-import './Home.css';
+import './Home.scss';
 
 function Home () {
   return (

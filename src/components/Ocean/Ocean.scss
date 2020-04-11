@@ -1,0 +1,40 @@
+@import '../../theme/Colors.scss';
+@import '../../theme/Helpers.scss';
+
+.ocean-header {
+  @extend .fillRowCenter;
+  @extend .mainSpaceBetween;
+  margin-bottom: 10px;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.ocean {
+  @extend .fillRow;
+  @extend .flexWrap;
+}
+
+.island-area {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  padding: 7px 5px;
+  margin: 5px;
+  border: 1px solid $black;
+  border-radius: 5px;
+  @extend .textCenter;
+  cursor: default;
+  overflow: hidden;
+
+  div {
+    @extend .textOverflow;
+  }
+}
+
+.dropdown-menu {
+  max-height: 400px;
+  overflow-x: auto;
+  left: -25px !important;
+}

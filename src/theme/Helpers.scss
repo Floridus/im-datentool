@@ -1,0 +1,204 @@
+.boxBasics {
+  border-radius: 5px;
+  box-shadow: 0 11px 59px 0 rgba(0, 0, 0, 0.56);
+}
+
+.textOverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.colCenter {
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.colCross {
+  align-items: center;
+  flex-direction: column;
+}
+
+.colMain {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.columnReverse {
+  flex-direction: column-reverse;
+}
+
+.crossCenter {
+  align-items: center;
+}
+
+.crossEnd {
+  align-items: flex-end;
+}
+
+.crossStart {
+  align-items: flex-start;
+}
+
+.crossStretch {
+  align-items: stretch;
+}
+
+.fillCenter {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.fillCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.fillColCenter {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fillColCross {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.fillColMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fillColReverse {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.fillRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.fillRowCenter {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.fillRowCross {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.fillRowMain {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.fillRowReverse {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.mainCenter {
+  justify-content: center;
+}
+
+.mainEnd {
+  justify-content: flex-end;
+}
+
+.mainSpaceAround {
+  justify-content: space-around;
+}
+
+.mainSpaceBetween {
+  justify-content: space-between;
+}
+
+.mainSpaceEvenly {
+  justify-content: space-evenly;
+}
+
+.mainStart {
+  justify-content: flex-start;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.rowCenter {
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.rowCross {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.rowMain {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.rowEnd {
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.rowReverse {
+  flex-direction: row-reverse;
+}
+
+.scrollSpaceAround {
+  flex-grow: 1;
+  justify-content: space-around;
+}
+
+.scrollSpaceBetween {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.selfStretch {
+  align-self: stretch;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.textJustify {
+  text-align: justify;
+}
+
+.textLeft {
+  text-align: left;
+}
+
+.textRight {
+  text-align: right;
+}

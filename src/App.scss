@@ -1,0 +1,45 @@
+@import './theme/Colors.scss';
+@import './theme/Helpers.scss';
+
+.container {
+  width: 1240px;
+  margin: 20px auto;
+  background-color: $areaBackgroundColor !important;
+  border-radius: 5px;
+  padding: 20px;
+  @extend .boxBasics;
+  font-size: 14px;
+}
+
+.root-area {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+.header-area {
+  border-bottom: 1px solid $black;
+}
+
+.navbar {
+  background-color: $areaBackgroundColor;
+}
+
+.navbar-brand, .nav-link {
+  color: $backgroundColor !important;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+.heart {
+  color: red;
+}
+
+.footer-area {
+  border-top: 1px solid $black;
+  position: absolute !important;
+  bottom: 0;
+  width: 100%;
+}

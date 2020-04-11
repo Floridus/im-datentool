@@ -1,0 +1,36 @@
+@import '../../theme/Colors.scss';
+@import '../../theme/Helpers.scss';
+
+.world {
+  @extend .fillRow;
+  @extend .flexWrap;
+}
+
+.ocean-area {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  padding: 17px 5px;
+  margin: 5px;
+  border: 1px solid $black;
+  border-radius: 5px;
+  @extend .textCenter;
+  cursor: default;
+}
+
+.ocean-info {
+  position: absolute;
+  width: 150px;
+  left: -25px;
+  background-color: $areaBackgroundColor;
+  border: 1px solid $black;
+  z-index: 10;
+  padding: 10px;
+  color: $black;
+  @extend .boxBasics;
+}
+
+.ally-line {
+  @extend .fillRow;
+  @extend .mainSpaceBetween;
+}

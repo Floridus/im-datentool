@@ -1,51 +1,64 @@
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
-import './App.css';
+import './App.scss';
+
+import reducer from './redux/reducer';
+import config from './config/index';
 
 import Home from './components/Home/Home';
-import World from './components/World/World';
+import WorldContainer from './containers/World/World';
+import AllyDataList from './containers/AllyDataList/AllyDataList';
+import OceanContainer from './containers/Ocean/Ocean';
+
+const store = createStore(reducer);
 
 function App () {
-  /*const client = new ApolloClient({
-    uri: 'https://48p1r2roz4.sse.codesandbox.io',
-  });*/
+  const client = new ApolloClient({
+    uri: config.API_URL,
+  });
 
   return (
-    <>
-      {/*<ApolloProvider client={client}>*/}
+    <div className="root-area">
+      <Provider store={store}>
         <Router>
-          <Navbar>
-            <Navbar.Brand href="/">IM Datentool</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-                <Nav.Link href="/world">Weltübersicht</Nav.Link>
-                <Nav.Link href="/ocean">Ozeanübersicht</Nav.Link>
-                <Nav.Link href="/alliances">Allianzen</Nav.Link>
-                <Nav.Link href="/players">Spieler</Nav.Link>
-                <Nav.Link href="/changes">Wechsel</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-            Welt 47
-          </Navbar>
-          <div className="root">
-            <Switch>
-              <Route path="/" exact><Home /></Route>
-              <Route path="/world" exact><World /></Route>
-            </Switch>
-          </div>
-          <Navbar fixed="bottom">
-            <Navbar.Text>
-              Made with <span className="heart">❤</span> in Austria by Floridus
-            </Navbar.Text>
-          </Navbar>
+          <ApolloProvider client={client}>
+            <Navbar className="header-area">
+              <Link to="/" className="navbar-brand">IM Datentool</Link>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                  <Link to="/world" className="nav-link">Weltübersicht</Link>
+                  <Link to="/ocean" className="nav-link">Ozeanübersicht</Link>
+                  <Link to="/alliances" className="nav-link">Allianzen</Link>
+                  <Link to="/players" className="nav-link">Spieler</Link>
+                  <Link to="/changes" className="nav-link">Wechsel</Link>
+                </Nav>
+              </Navbar.Collapse>
+              Welt 47
+            </Navbar>
+            <div className="container">
+              <AllyDataList />
+              <Switch>
+                <Route path="/" exact><Home /></Route>
+                <Route path="/world" exact><WorldContainer /></Route>
+                <Route path="/ocean" exact><OceanContainer /></Route>
+              </Switch>
+            </div>
+            <Navbar className="footer-area">
+              <Navbar.Text>
+                Made with <span className="heart">❤</span> in Austria by Floridus
+              </Navbar.Text>
+            </Navbar>
+          </ApolloProvider>
         </Router>
-      {/*</ApolloProvider>*/}
-    </>
+      </Provider>
+    </div>
   );
 }
 
