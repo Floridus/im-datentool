@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './World.scss';
 import { getAllyCode } from '../../utils/functions';
@@ -38,7 +39,8 @@ function WorldOcean (props) {
   const ally = allyList.find(ally => ally.code === firstAlliance.code);
 
   return (
-    <div
+    <Link
+      to={`/ocean/${ocean}`}
       className="ocean-area"
       onMouseEnter={() => setShowInfo(true)}
       onMouseLeave={() => setShowInfo(false)}
@@ -57,7 +59,7 @@ function WorldOcean (props) {
         )}
       </div>
       }
-    </div>
+    </Link>
   );
 }
 

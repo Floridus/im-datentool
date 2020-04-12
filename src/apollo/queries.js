@@ -16,6 +16,32 @@ export const getIslands = gql`
                     name
                 }
             }
+            islandChanges {
+                id
+                island {
+                  id
+                  number
+                }
+                newOwner {
+                    id
+                    name
+                    alliance {
+                        id
+                        code
+                        name
+                    }
+                }
+                oldOwner {
+                    id
+                    name
+                    alliance {
+                        id
+                        code
+                        name
+                    }
+                }
+                createdAt
+            }
         }
     }
 `;

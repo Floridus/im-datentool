@@ -6,7 +6,7 @@ import WorldOcean from './WorldOcean';
 
 function World (props) {
   const { islands } = props;
-  const oceans = Math.floor(islands.length / 100);
+  const oceans = Math.ceil(islands.length / 100);
 
   return (
     <>

@@ -47,7 +47,7 @@ function App () {
               <Switch>
                 <Route path="/" exact><Home /></Route>
                 <Route path="/world" exact><WorldContainer /></Route>
-                <Route path="/ocean" exact><OceanContainer /></Route>
+                <Route path="/ocean/:oce?" exact><OceanContainer /></Route>
               </Switch>
             </div>
             <Navbar className="footer-area">

@@ -1,8 +1,6 @@
 import React from 'react';
 import { getAllyCode } from '../../utils/functions';
 
-import './Ocean.scss';
-
 function Island (props) {
   const { island, allyList } = props;
 

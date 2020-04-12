@@ -5,11 +5,13 @@ import { Button, DropdownButton, Dropdown } from 'react-bootstrap';
 import './Ocean.scss';
 import Island from './Island';
 import { rangeArray } from '../../utils/functions';
+import OceanRanking from './OceanRanking';
+import OceanIslandChanges from './OceanIslandChanges';
 
 function Ocean (props) {
-  const { islands, setOcean, ocean, allys, maxOcean } = props;
+  const { islands, setOcean, ocean, allys, maxOcean, ranking, islandChanges } = props;
 
-  console.log(maxOcean);
+  console.log(islands);
 
   return (
     <>
@@ -35,6 +37,10 @@ function Ocean (props) {
         <Button variant="dark" onClick={() => setOcean(ocean + 1)} disabled={ocean === maxOcean}>
           Nächster Ozean
         </Button>
+      </div>
+      <div className="statistic-area">
+        <OceanRanking ranking={ranking} ocean={ocean} allyList={allys.list} />
+        <OceanIslandChanges islandChanges={islandChanges} ocean={ocean} allyList={allys.list} />
       </div>
       <div className="ocean">
         {islands

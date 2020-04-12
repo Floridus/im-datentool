@@ -13,9 +13,15 @@
   padding: 17px 5px;
   margin: 5px;
   border: 1px solid $black;
+  color: $black;
   border-radius: 5px;
   @extend .textCenter;
-  cursor: default;
+  cursor: pointer;
+
+  &:hover {
+    @extend .boxBasics;
+    color: $black;
+  }
 }
 
 .ocean-info {

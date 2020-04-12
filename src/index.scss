@@ -13,5 +13,9 @@ code {
 }
 
 a {
-  color: #61dafb;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none !important;
+  }
 }

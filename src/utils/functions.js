@@ -56,6 +56,15 @@ export function randomBackgroundColor () {
   return 'rgb(' + x + ',' + y + ',' + z + ')';
 }
 
-export function getAllyCode (alliance) {
-  return alliance && alliance.code !== 'no-ally' ? <b>{alliance.code}</b> : <i>-</i>;
+export function getAllyCode (alliance, isBold = true) {
+  return alliance && alliance.code !== 'no-ally' ? (isBold ?
+    <b>{alliance.code}</b> : alliance.code) : <i>-</i>;
+}
+
+export function text_truncate (str, length = 100, ending = '...') {
+  if (str.length > length) {
+    return str.substring(0, length - ending.length) + ending;
+  } else {
+    return str;
+  }
 }

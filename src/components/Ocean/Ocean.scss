@@ -38,3 +38,13 @@
   overflow-x: auto;
   left: -25px !important;
 }
+
+.statistic-area {
+  margin-top: 20px;
+  @extend .fillRow;
+
+  & > div {
+    flex: 1;
+    margin: 5px;
+  }
+}
