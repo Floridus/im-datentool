@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import moment from 'moment';
+import 'moment/locale/de';
 
 import { getAllyCode, text_truncate } from '../../utils/functions';
 

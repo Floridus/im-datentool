@@ -11,8 +11,6 @@ import IslandChanges from '../IslandChanges/IslandChanges';
 function Ocean (props) {
   const { islands, setOcean, ocean, allys, maxOcean, ranking, islandChanges } = props;
 
-  console.log(islands);
-
   return (
     <>
       <div className="ocean-header">
