@@ -19,7 +19,7 @@ function IslandChanges (props) {
           <th>Alte Ally</th>
           <th>Neuer Besitzer</th>
           <th>Neue Ally</th>
-          <th>Zeitpunkt</th>
+          <th>Zeitraum</th>
         </tr>
         </thead>
         <tbody>

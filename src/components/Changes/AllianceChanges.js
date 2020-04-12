@@ -18,7 +18,7 @@ function AllianceChanges (props) {
           <th>Spieler</th>
           <th>Alte Ally</th>
           <th>Neue Ally</th>
-          <th>Zeitpunkt</th>
+          <th>Zeitraum</th>
         </tr>
         </thead>
         <tbody>
