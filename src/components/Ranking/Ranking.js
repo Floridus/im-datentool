@@ -3,11 +3,12 @@ import { Table } from 'react-bootstrap';
 
 import { getAllyCode } from '../../utils/functions';
 
-function OceanRanking (props) {
-  const { ranking, ocean, allyList } = props;
+function Ranking (props) {
+  const { ranking, allyList } = props;
 
   return (
     <div className="ranking">
+      <b>Besten Spieler</b>
       <Table striped hover size="sm" responsive variant="dark">
         <thead>
         <tr>
@@ -24,7 +25,7 @@ function OceanRanking (props) {
 
           return (
             <tr
-              key={`Ocean${ocean}Player${rank.player.id}`}
+              key={`Player${rank.player.id}`}
               style={ally ? { backgroundColor: ally.color, color: 'white' } : {}}
             >
               <td>{index + 1}.</td>
@@ -41,4 +42,4 @@ function OceanRanking (props) {
   );
 }
 
-export default OceanRanking;
+export default Ranking;

@@ -56,6 +56,58 @@ export const getAlliances = gql`
     }
 `;
 
+export const getAllianceChanges = gql`
+    query ($pagination: Pagination, $sorting: Sorting) {
+        allianceChanges(pagination: $pagination, sorting: $sorting) {
+            id
+            player {
+                id
+                name
+            }
+            oldAlly {
+                id
+                code
+                name
+            }
+            newAlly {
+                id
+                code
+                name
+            }
+            createdAt
+        }
+    }
+`;
+
+export const getIslandChanges = gql`
+    query ($pagination: Pagination, $sorting: Sorting) {
+        islandChanges(pagination: $pagination, sorting: $sorting) {
+            id
+            island {
+                id
+                number
+            }
+            oldOwner {
+                id
+                name
+                alliance {
+                    id
+                    code
+                }
+            }
+            newOwner {
+                id
+                name
+                alliance {
+                    id
+                    code
+                }
+            }
+            createdAt
+        }
+    }
+`;
+
 export const getOceansCount = gql`
     query {
         oceansCount

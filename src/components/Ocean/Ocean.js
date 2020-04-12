@@ -5,8 +5,8 @@ import { Button, DropdownButton, Dropdown } from 'react-bootstrap';
 import './Ocean.scss';
 import Island from './Island';
 import { rangeArray } from '../../utils/functions';
-import OceanRanking from './OceanRanking';
-import OceanIslandChanges from './OceanIslandChanges';
+import Ranking from '../Ranking/Ranking';
+import IslandChanges from '../IslandChanges/IslandChanges';
 
 function Ocean (props) {
   const { islands, setOcean, ocean, allys, maxOcean, ranking, islandChanges } = props;
@@ -39,8 +39,8 @@ function Ocean (props) {
         </Button>
       </div>
       <div className="statistic-area">
-        <OceanRanking ranking={ranking} ocean={ocean} allyList={allys.list} />
-        <OceanIslandChanges islandChanges={islandChanges} ocean={ocean} allyList={allys.list} />
+        <Ranking ranking={ranking} allyList={allys.list} />
+        <IslandChanges islandChanges={islandChanges} allyList={allys.list} />
       </div>
       <div className="ocean">
         {islands

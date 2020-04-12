@@ -34,7 +34,10 @@ function WorldOcean (props) {
     return b.count - a.count;
   });
 
-  const firstAlliance = alliancesCount[0];
+  let firstAlliance = alliancesCount[0];
+  if (firstAlliance.code === 'no-ally' && alliancesCount.length > 1) {
+    firstAlliance = alliancesCount[1];
+  }
 
   const ally = allyList.find(ally => ally.code === firstAlliance.code);
 

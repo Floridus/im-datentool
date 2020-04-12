@@ -15,6 +15,7 @@ import Home from './components/Home/Home';
 import WorldContainer from './containers/World/World';
 import AllyDataList from './containers/AllyDataList/AllyDataList';
 import OceanContainer from './containers/Ocean/Ocean';
+import ChangesContainer from './containers/Changes/Changes';
 
 const store = createStore(reducer);
 
@@ -54,9 +55,7 @@ function App () {
                 <Route path="/players" exact>
                   <div>Coming soon</div>
                 </Route>
-                <Route path="/changes" exact>
-                  <div>Coming soon</div>
-                </Route>
+                <Route path="/changes" exact><ChangesContainer /></Route>
               </Switch>
             </div>
             <Navbar className="footer-area">

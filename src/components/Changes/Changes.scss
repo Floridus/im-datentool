@@ -1,0 +1,17 @@
+@import '../../theme/Colors.scss';
+@import '../../theme/Helpers.scss';
+
+.world {
+  @extend .fillRow;
+  @extend .flexWrap;
+}
+
+.changes-area {
+  margin-top: 20px;
+  @extend .fillRow;
+
+  & > div {
+    flex: 1;
+    margin: 5px;
+  }
+}
