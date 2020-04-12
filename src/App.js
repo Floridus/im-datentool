@@ -48,6 +48,15 @@ function App () {
                 <Route path="/" exact><Home /></Route>
                 <Route path="/world" exact><WorldContainer /></Route>
                 <Route path="/ocean/:oce?" exact><OceanContainer /></Route>
+                <Route path="/alliances" exact>
+                  <div>Coming soon</div>
+                </Route>
+                <Route path="/players" exact>
+                  <div>Coming soon</div>
+                </Route>
+                <Route path="/changes" exact>
+                  <div>Coming soon</div>
+                </Route>
               </Switch>
             </div>
             <Navbar className="footer-area">
