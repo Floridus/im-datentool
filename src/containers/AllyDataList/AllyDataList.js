@@ -23,6 +23,7 @@ function AllyDataList (props) {
   useEffect(() => {
     if (props.allys.list.length === 0 && data) {
       const { alliances } = data;
+      alliances.sort((a, b) => { return b.points - a.points;});
 
       const allyList = [];
       alliances.map(ally => {

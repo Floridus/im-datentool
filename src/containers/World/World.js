@@ -11,7 +11,7 @@ function WorldContainer () {
   const { data, loading, error } = useQuery(getIslands, {
     variables: {
       pagination: {
-        perPage: 100000,
+        perPage: 1000000,
         page: 1,
       },
     },

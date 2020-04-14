@@ -1,4 +1,5 @@
 import React from 'react';
+import NumberFormat from 'react-number-format';
 
 /**
  * range()
@@ -67,4 +68,13 @@ export function text_truncate (str, length = 100, ending = '...') {
   } else {
     return str;
   }
+}
+
+export function getNumberFormat (value, type = 'text') {
+  return <NumberFormat
+    value={value}
+    displayType={type}
+    thousandSeparator="."
+    decimalSeparator=","
+  />;
 }

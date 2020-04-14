@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
-import { getAllyCode } from '../../utils/functions';
+import { getAllyCode, getNumberFormat } from '../../utils/functions';
 
 function Ranking (props) {
   const { ranking, allyList } = props;
@@ -15,8 +15,8 @@ function Ranking (props) {
           <th>#</th>
           <th>Spieler</th>
           <th>Ally</th>
-          <th>Inseln</th>
-          <th>Punkte</th>
+          <th className="textCenter">Inseln</th>
+          <th className="textRight">Punkte</th>
         </tr>
         </thead>
         <tbody>
@@ -31,8 +31,10 @@ function Ranking (props) {
               <td>{index + 1}.</td>
               <td>{rank.player.name}</td>
               <td>{getAllyCode(rank.player.alliance, false)}</td>
-              <td>{rank.islands}</td>
-              <td>{rank.points}</td>
+              <td className="textCenter">{rank.islands}</td>
+              <td className="textRight">
+                {getNumberFormat(rank.points)}
+              </td>
             </tr>
           );
         })}

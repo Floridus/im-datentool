@@ -16,6 +16,7 @@ import WorldContainer from './containers/World/World';
 import AllyDataList from './containers/AllyDataList/AllyDataList';
 import OceanContainer from './containers/Ocean/Ocean';
 import ChangesContainer from './containers/Changes/Changes';
+import AllianceRankingContainer from './containers/AllianceRanking/AllianceRanking';
 
 const store = createStore(reducer);
 
@@ -49,9 +50,7 @@ function App () {
                 <Route path="/" exact><Home /></Route>
                 <Route path="/world" exact><WorldContainer /></Route>
                 <Route path="/ocean/:oce?" exact><OceanContainer /></Route>
-                <Route path="/alliances" exact>
-                  <div>Coming soon</div>
-                </Route>
+                <Route path="/alliances" exact><AllianceRankingContainer /></Route>
                 <Route path="/players" exact>
                   <div>Coming soon</div>
                 </Route>

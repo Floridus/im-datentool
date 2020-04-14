@@ -47,11 +47,19 @@ export const getIslands = gql`
 `;
 
 export const getAlliances = gql`
-    query ($pagination: Pagination) {
-        alliances(pagination: $pagination) {
+    query ($pagination: Pagination, $sorting: Sorting) {
+        alliances(pagination: $pagination, sorting: $sorting) {
             id
             code
             name
+            points
+            islands
+            alliancePointsIncreases {
+                id
+                pointsIncrease
+                islandsIncrease
+                dailyDate
+            }
         }
     }
 `;
