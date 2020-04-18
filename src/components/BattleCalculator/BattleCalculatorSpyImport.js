@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
 function BattleCalculatorSpyImport (props) {
-  const { setDefenseUnits, setDefenseShipUnits } = props;
+  const { setDefenseUnits, setDefenseShips } = props;
 
   const [show, setShow] = useState(false);
   const [spyText, setSpyText] = useState('');
@@ -60,7 +60,7 @@ function BattleCalculatorSpyImport (props) {
       }
 
       setDefenseUnits(islandUnitsAndBuildings);
-      setDefenseShipUnits(shipUnits);
+      setDefenseShips(shipUnits);
     }
   };
 

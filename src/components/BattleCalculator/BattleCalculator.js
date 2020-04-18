@@ -5,7 +5,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import './BattleCalculator.scss';
 
-import { areTheseObjectsEqual } from '../../utils/functions';
+import { calculateWaves } from '../../utils/warFunctions';
 import Error from '../Error/Error';
 import BattleCalculatorSpyImport from './BattleCalculatorSpyImport';
 import CustomTooltip from '../CustomTooltip/CustomTooltip';
@@ -13,268 +13,22 @@ import CustomTooltip from '../CustomTooltip/CustomTooltip';
 function BattleCalculator () {
   const [isWave, setIsWave] = useState(true);
 
-  // ship values are the same for attacking and defending
-  const shipValues = {
-    ksk: 990 + 100, // cannon development 10 * 10
-    ksg: 2454 + 100, // cannon development 10 * 10
-    kb: 7272 + 100, // cannon development 10 * 10
-    kbg: 12232 + 100, // cannon development 10 * 10
-    hb: 29356 + 100, // cannon development 10 * 10
-  };
-  const attackValues = {
-    ...{
-      es: 9,
-      sp: 22 + 10, // spear development 10
-      bs: 46 + 10, // bow development 10
-      sk: 80 + 10, // sword development 10
-    },
-    ...shipValues,
-  };
-  const defenseValues = {
-    ...{
-      es: 9 + 10, // defense development 10
-      sp: 22 + 6 + 10, // spear and defense development 10
-      bs: 46 + 10 + 10, // bow and defense development 10
-      sk: 80 + 10 + 10, // sword and defense development 10
-    },
-    ...shipValues,
-    ...{
-      al: 6972 + 100, // cannon development 10 * 10
-    },
-  };
   const startUnits = { es: 0, sp: 0, bs: 0, sk: 0 };
   const [offenseUnits, setOffenseUnits] = useState(startUnits);
   const [defenseUnits, setDefenseUnits] = useState({
     ...startUnits,
     ...{ wt: 0, sm: 0, hh: 0 },
   });
-  const startShipUnits = { ksk: 0, ksg: 0, kb: 0, kbg: 0, hb: 0 };
-  const [offenseShipUnits, setOffenseShipUnits] = useState(startShipUnits);
-  const [defenseShipUnits, setDefenseShipUnits] = useState({
-    ...startShipUnits,
+  const startShips = { ksk: 0, ksg: 0, kb: 0, kbg: 0, hb: 0 };
+  const [offenseShips, setOffenseShips] = useState(startShips);
+  const [defenseShips, setDefenseShips] = useState({
+    ...startShips,
     ...{ al: 0 },
   });
   const [remainingUnits, setRemainingUnits] = useState(null);
+  const [remainingShips, setRemainingShips] = useState(null);
   const [notWorking, setNotWorking] = useState(false);
-
-  /**
-   * Calculate the total defense sum of main house and all units + stone wall + watch tower
-   * 50 is the development defense level 10 * 5
-   *
-   * @returns {[number, number]}
-   */
-  const calculateDefense = (units) => {
-    let defenseSum = 0;
-    let mainHouseSum = 0;
-
-    Object.keys(units)
-    .map((defenseUnit, index) => {
-      if (units[defenseUnit] > 0) {
-        if (index < 4) {
-          defenseSum += units[defenseUnit] * defenseValues[defenseUnit];
-        } else if (index === 4) { // watchTower
-          const watchTower = units[defenseUnit];
-          defenseSum += units[defenseUnit] * getBuildingValue(watchTower, 1);
-        } else {
-          const unitValue = units[defenseUnit];
-          const totalValue = units[defenseUnit] * getBuildingValue(unitValue, 5);
-          if (index === 5) // stone wall
-            defenseSum += totalValue;
-          else if (index === 6) // main house
-            mainHouseSum += totalValue;
-        }
-      }
-
-      return null;
-    });
-
-    // if the ground value of the island is to low, then the island will get a standard defensive value
-    if ((defenseSum + mainHouseSum) < 1500) { // random value between 800 and 1500
-      defenseSum += 2500 + 50; // random value between 1500 and 2500
-    }
-
-    if (defenseSum === 0)
-      defenseSum = 1;
-
-    return [defenseSum, mainHouseSum];
-  };
-
-  /**
-   * Main house and stone wall have multiplier 5
-   * Watch tower has multiplier 1
-   * 50 is the development defense level 10 * 5
-   *
-   * @param level
-   * @param multiplier
-   * @returns {number}
-   */
-  const getBuildingValue = (level, multiplier) => {
-    return 1 + ((level * multiplier) * level) + 50;
-  };
-
-  /**
-   * Calculate the total offense sum value
-   *
-   * @param units
-   * @returns {number}
-   */
-  const calculateOffense = (units) => {
-    let attackSum = 0;
-
-    Object.keys(units)
-    .map(offenseUnit => {
-      if (units[offenseUnit] > 0)
-        attackSum += units[offenseUnit] * attackValues[offenseUnit];
-
-      return null;
-    });
-
-    if (attackSum === 0)
-      attackSum = 1;
-
-    return attackSum;
-  };
-
-  const setAllUnitsToZero = (units, maxIndex = null) => {
-    Object.keys(units)
-    .map((unit, index) => {
-      if ((maxIndex !== null && index <= maxIndex) || maxIndex === null)
-        units[unit] = 0;
-      return null;
-    });
-
-    return units;
-  };
-
-  const calculateNewUnit = (units, keyUnit, sum, value) => {
-    if (['es', 'sp', 'bs', 'sk'].includes(keyUnit)) {
-      return Math.round((value * ((units[keyUnit] * defenseValues[keyUnit]) * 100 / sum) / 100) / defenseValues[keyUnit]);
-    } else {
-      const multiplier = keyUnit === 'wt' ? 1 : 5;
-      return Math.round((value * ((units[keyUnit] * getBuildingValue(units[keyUnit], multiplier)) * 100 / sum) / 100) / getBuildingValue(units[keyUnit], multiplier));
-    }
-  };
-
-  /**
-   * Calculate the loses of offense and defense
-   *
-   * @param attObj
-   * @param defObj
-   * @param attackSum
-   * @param defenseSum
-   * @param mainHouseSum
-   */
-  const calculateLoses = (attObj, defObj, attackSum, defenseSum, mainHouseSum) => {
-    let attacker = { ...attObj };
-    let defender = { ...defObj };
-
-    const attackerPercent = (100 / (attackSum + defenseSum)) * attackSum;
-    const defenderPercent = (100 / (attackSum + defenseSum)) * defenseSum;
-
-    const attackWon = attackerPercent > defenderPercent;
-    let value = attackWon ? attackSum - defenseSum : defenseSum - attackSum;
-
-    if (attackWon) { // attacker won
-      // set all defending units and buildings without main house to zero
-      defender = setAllUnitsToZero(defender, 3);
-
-      // own lose calculation for stone wall and watch tower
-      defender.sm = Math.round((defender.sm * getBuildingValue(defender.sm, 5) * defenderPercent / 100) / getBuildingValue(defender.sm, 5));
-      defender.wt = Math.round((defender.wt * getBuildingValue(defender.wt, 1) * defenderPercent / 100) / getBuildingValue(defender.wt, 1));
-
-      Object.keys(attacker)
-      .map(unit => {
-        attacker[unit] = calculateNewUnit(attacker, unit, attackSum, value);
-
-        return null;
-      });
-
-      const newAttackSum = calculateOffense(attacker);
-
-      if (newAttackSum > mainHouseSum) { // attacker won
-        defender.hh = 0;
-
-        value = newAttackSum - mainHouseSum;
-
-        Object.keys(attacker)
-        .map(unit => {
-          // attacker[unit] = Math.round(attacker[unit] * value);
-          attacker[unit] = calculateNewUnit(attacker, unit, newAttackSum, value);
-
-          return null;
-        });
-      } else { // defender with main house won
-        value = mainHouseSum - newAttackSum;
-
-        defender.hh = calculateNewUnit(defender, 'hh', mainHouseSum, value);
-
-        attacker = setAllUnitsToZero(attacker);
-      }
-
-    } else { // defender won
-      // set all attacking units to zero
-      attacker = setAllUnitsToZero(attacker);
-
-      Object.keys(defender)
-      .map((unit, index) => {
-        if (index < 6)
-          defender[unit] = calculateNewUnit(defender, unit, defenseSum, value);
-
-        return null;
-      });
-    }
-
-    return [attacker, defender];
-  };
-
-  /**
-   * Calculate offense and defense of all waves
-   *
-   */
-  const calculateWave = (attacker, defender) => {
-    console.log('start', defender);
-    const [defenseSum, mainHouseSum] = calculateDefense(defender);
-    const attackSum = calculateOffense(attacker);
-
-    return calculateLoses(attacker, defender, attackSum, defenseSum, mainHouseSum);
-  };
-
-  const checkIfUnitsAreDead = (units) => {
-    let unitsAreDead = true;
-
-    Object.keys(units)
-    .map(unit => {
-      if (units[unit] > 0)
-        unitsAreDead = false;
-
-      return null;
-    });
-
-    return unitsAreDead;
-  };
-
-  const calculateWaves = () => {
-    const tmpRemainingUnits = [];
-    let wave = 1;
-    let [attacker, defender] = calculateWave(offenseUnits, defenseUnits);
-    tmpRemainingUnits.push(defender);
-
-    if (isWave) {
-      while (!checkIfUnitsAreDead(defender)) {
-        wave += 1;
-        [attacker, defender] = calculateWave(offenseUnits, defender);
-        // check if the last wave result is the same defender result to break the while loop
-        if (tmpRemainingUnits.length > 0 && areTheseObjectsEqual(defender, tmpRemainingUnits[tmpRemainingUnits.length - 1])) { // if is the last defenders wave are the same as the defenders now
-          setNotWorking(true);
-          break;
-        } else if (wave === 21) { // max 20 waves
-          break;
-        } else
-          tmpRemainingUnits.push(defender);
-      }
-    }
-    setRemainingUnits(tmpRemainingUnits);
-  };
+  const [shipsNotWorking, setShipsNotWorking] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -282,7 +36,20 @@ function BattleCalculator () {
 
     if (notWorking)
       setNotWorking(false);
-    calculateWaves();
+    if (shipsNotWorking)
+      setShipsNotWorking(false);
+
+    const [tmpNotWorking, tmpShipsNotWorking, tmpRemainingUnits, tmpRemainingShips] = calculateWaves(isWave, offenseUnits, defenseUnits, offenseShips, defenseShips);
+
+    if (tmpNotWorking)
+      setNotWorking(true);
+    if (tmpShipsNotWorking)
+      setShipsNotWorking(true);
+
+    if (tmpRemainingUnits && tmpRemainingUnits.length > 0)
+      setRemainingUnits(tmpRemainingUnits);
+    if (tmpRemainingShips && tmpRemainingShips.length > 0)
+      setRemainingShips(tmpRemainingShips);
   };
 
   const handleShipChange = (event) => {
@@ -294,7 +61,7 @@ function BattleCalculator () {
       newShips[name.replace('attack', '')
       .toLowerCase()] = parsedValue;
 
-      setOffenseShipUnits({ ...offenseShipUnits, ...newShips });
+      setOffenseShips({ ...offenseShips, ...newShips });
     } else if (name.includes('defend')) {
       const code = name.replace('defend', '')
       .toLowerCase();
@@ -309,7 +76,7 @@ function BattleCalculator () {
       const newShips = {};
       newShips[code] = parsedValue;
 
-      setDefenseShipUnits({ ...defenseShipUnits, ...newShips });
+      setDefenseShips({ ...defenseShips, ...newShips });
     }
   };
 
@@ -374,7 +141,7 @@ function BattleCalculator () {
             <h3>Angreifer</h3>
             <b>Seeschlacht</b>
             {shipForm.map(offenseShipFormGroup => {
-              let value = offenseShipUnits[offenseShipFormGroup.code.toLowerCase()];
+              let value = offenseShips[offenseShipFormGroup.code.toLowerCase()];
               if (Number.isNaN(value)) // if the number is removed
                 value = '';
 
@@ -442,7 +209,7 @@ function BattleCalculator () {
             <h3>Verteidiger</h3>
             <b>Seeschlacht</b>
             {defenseShipForm.map(defenseShipFormGroup => {
-              let value = defenseShipUnits[defenseShipFormGroup.code.toLowerCase()];
+              let value = defenseShips[defenseShipFormGroup.code.toLowerCase()];
               if (Number.isNaN(value)) // if the number is removed
                 value = '';
 
@@ -506,40 +273,80 @@ function BattleCalculator () {
             })}
           </Col>
           <Col sm={4}>
+            {remainingShips &&
+            <>
+              <b>Seeschlacht</b>
+              <Table striped bordered hover size="sm">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>KSk</th>
+                  <th>KSg</th>
+                  <th>KB</th>
+                  <th>KBg</th>
+                  <th>HB</th>
+                  <th>AL</th>
+                </tr>
+                </thead>
+                <tbody>
+                {remainingShips.map((remainingShipsWave, index) =>
+                  <tr key={`remainingWave${index}`}>
+                    <td>{index + 1}.</td>
+                    <td>{remainingShipsWave.ksk}</td>
+                    <td>{remainingShipsWave.ksg}</td>
+                    <td>{remainingShipsWave.kb}</td>
+                    <td>{remainingShipsWave.kbg}</td>
+                    <td>{remainingShipsWave.hb}</td>
+                    <td>{remainingShipsWave.al}</td>
+                  </tr>,
+                )}
+                </tbody>
+              </Table>
+            </>
+            }
+            {shipsNotWorking &&
+            <Error
+              error={{ message: 'Mit den Angreifer See Einheiten kann der Verteidiger auf See nicht bezwungen werden' }}
+              title="Kein Durchkommen auf See"
+            />
+            }
             {remainingUnits &&
-            <Table striped bordered hover size="sm">
-              <thead>
-              <tr>
-                <th>#</th>
-                <th>HH</th>
-                <th>SM</th>
-                <th>WT</th>
-                <th>ES</th>
-                <th>SP</th>
-                <th>BS</th>
-                <th>SK</th>
-              </tr>
-              </thead>
-              <tbody>
-              {remainingUnits.map((remainingUnitsWave, index) =>
-                <tr key={`remainingWave${index}`}>
-                  <td>{index + 1}.</td>
-                  <td>{remainingUnitsWave.hh}</td>
-                  <td>{remainingUnitsWave.sm}</td>
-                  <td>{remainingUnitsWave.wt}</td>
-                  <td>{remainingUnitsWave.es}</td>
-                  <td>{remainingUnitsWave.sp}</td>
-                  <td>{remainingUnitsWave.bs}</td>
-                  <td>{remainingUnitsWave.sk}</td>
-                </tr>,
-              )}
-              </tbody>
-            </Table>
+            <>
+              <b>Landkampf</b>
+              <Table striped bordered hover size="sm">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>HH</th>
+                  <th>SM</th>
+                  <th>WT</th>
+                  <th>ES</th>
+                  <th>SP</th>
+                  <th>BS</th>
+                  <th>SK</th>
+                </tr>
+                </thead>
+                <tbody>
+                {remainingUnits.map((remainingUnitsWave, index) =>
+                  <tr key={`remainingWave${index}`}>
+                    <td>{index + 1}.</td>
+                    <td>{remainingUnitsWave.hh}</td>
+                    <td>{remainingUnitsWave.sm}</td>
+                    <td>{remainingUnitsWave.wt}</td>
+                    <td>{remainingUnitsWave.es}</td>
+                    <td>{remainingUnitsWave.sp}</td>
+                    <td>{remainingUnitsWave.bs}</td>
+                    <td>{remainingUnitsWave.sk}</td>
+                  </tr>,
+                )}
+                </tbody>
+              </Table>
+            </>
             }
             {notWorking &&
             <Error
-              error={{ message: 'Mit den Angreifer Einheiten kann der Verteidiger nicht bezwungen werden' }}
-              title="Kein Durchkommen"
+              error={{ message: 'Mit den Angreifer Land Einheiten kann der Verteidiger am Land nicht bezwungen werden' }}
+              title="Kein Durchkommen am Land"
             />
             }
           </Col>
@@ -561,7 +368,7 @@ function BattleCalculator () {
         </Button>
         <BattleCalculatorSpyImport
           setDefenseUnits={setDefenseUnits}
-          setDefenseShipUnits={setDefenseShipUnits}
+          setDefenseShips={setDefenseShips}
         />
       </Form>
     </>
