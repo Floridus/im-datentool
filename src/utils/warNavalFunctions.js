@@ -1,28 +1,35 @@
 import { checkIfUnitsAreDead } from './warFunctions';
 import { areTheseObjectsEqual } from './functions';
 
-// ship values are the same for attacking and defending
-const shipValues = {
+const attackValues = {
   ksk: 990 + 100, // cannon development 10 * 10
   ksg: 2454 + 100, // cannon development 10 * 10
   kb: 7272 + 100, // cannon development 10 * 10
   kbg: 12232 + 100, // cannon development 10 * 10
   hb: 29356 + 100, // cannon development 10 * 10
+};
+const defenseValues = {
+  ksk: 987 + 100, // cannon development 10 * 10
+  ksg: 2452 + 100, // cannon development 10 * 10
+  kb: 6198 + 100, // cannon development 10 * 10
+  kbg: 12212 + 100, // cannon development 10 * 10
+  hb: 21981 + 100, // cannon development 10 * 10
   al: 6972 + 100, // cannon development 10 * 10
 };
 
 /**
  *
  * @param ships
+ * @param values
  * @returns {number}
  */
-export function calculateShips (ships) {
+export function calculateShips (ships, values) {
   let totalSum = 0;
 
   Object.keys(ships)
   .map(shipKey => {
     if (ships[shipKey] > 0)
-      totalSum += ships[shipKey] * shipValues[shipKey];
+      totalSum += ships[shipKey] * values[shipKey];
 
     return null;
   });
@@ -39,7 +46,7 @@ export function calculateShips (ships) {
  * @returns {number}
  */
 export function calculateOutrigger (outrigger) {
-  let outriggerSum = outrigger * shipValues.al;
+  let outriggerSum = outrigger * defenseValues.al;
   if (outriggerSum === 0)
     outriggerSum = 1;
 
@@ -55,8 +62,8 @@ export function calculateOutrigger (outrigger) {
  * @returns {number}
  */
 export function calculateAttackerShip (ships, keyShip, percent) {
-  const shipSum = ships[keyShip] * shipValues[keyShip];
-  return Math.round((shipSum - (shipSum * percent / 100)) / shipValues[keyShip]);
+  const shipSum = ships[keyShip] * attackValues[keyShip];
+  return Math.round((shipSum - (shipSum * percent / 100)) / attackValues[keyShip]);
 }
 
 /**
@@ -68,7 +75,7 @@ export function calculateAttackerShip (ships, keyShip, percent) {
  * @returns {number}
  */
 export function calculateDefenderShip (ships, keyShip, percent) {
-  return Math.round((ships[keyShip] * shipValues[keyShip] * percent / 100) / shipValues[keyShip]);
+  return Math.round((ships[keyShip] * defenseValues[keyShip] * percent / 100) / defenseValues[keyShip]);
 }
 
 export function checkIfOutriggerAreAlone (ships) {
@@ -133,9 +140,9 @@ export function calculateLoses (attObj, defObj, attackSum, defenseSum, outrigger
  * @returns {[*, *]}
  */
 export function calculateShipWave (attacker, defender) {
-  const defenseSum = calculateShips(defender);
+  const defenseSum = calculateShips(defender, defenseValues);
   const outriggerSum = calculateOutrigger(defender.al);
-  const attackSum = calculateShips(attacker);
+  const attackSum = calculateShips(attacker, attackValues);
 
   return calculateLoses(attacker, defender, attackSum, defenseSum, outriggerSum);
 }
