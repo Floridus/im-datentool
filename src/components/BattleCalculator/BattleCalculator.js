@@ -204,6 +204,23 @@ function BattleCalculator () {
                 </Form.Group>
               );
             })}
+
+            <div className="leftActionsArea">
+              <Form.Group>
+                <Form.Check
+                  type={'checkbox'}
+                  id={`wave-calculation`}
+                  label="Wellenberechnung"
+                  checked={isWave}
+                  value={isWave}
+                  onChange={() => setIsWave(!isWave)}
+                />
+              </Form.Group>
+
+              <Button variant="dark" type="submit">
+                Berechnen
+              </Button>
+            </div>
           </Col>
           <Col sm={4}>
             <h3>Verteidiger</h3>
@@ -271,6 +288,13 @@ function BattleCalculator () {
                 </Form.Group>
               );
             })}
+
+            <div className="rightActionsArea">
+              <BattleCalculatorSpyImport
+                setDefenseUnits={setDefenseUnits}
+                setDefenseShips={setDefenseShips}
+              />
+            </div>
           </Col>
           <Col sm={4}>
             {remainingShips &&
@@ -351,25 +375,6 @@ function BattleCalculator () {
             }
           </Col>
         </Row>
-
-        <Form.Group>
-          <Form.Check
-            type={'checkbox'}
-            id={`wave-calculation`}
-            label="Wellenberechnung"
-            checked={isWave}
-            value={isWave}
-            onChange={() => setIsWave(!isWave)}
-          />
-        </Form.Group>
-
-        <Button variant="dark" type="submit">
-          Berechnen
-        </Button>
-        <BattleCalculatorSpyImport
-          setDefenseUnits={setDefenseUnits}
-          setDefenseShips={setDefenseShips}
-        />
       </Form>
     </>
   );
