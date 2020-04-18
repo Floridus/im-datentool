@@ -1,30 +1,58 @@
 import React, { useState } from 'react';
+import { Button, Col, Form, Row, Table } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import './BattleCalculator.scss';
-import { Button, Col, Form, Row, Table } from 'react-bootstrap';
+
 import { areTheseObjectsEqual } from '../../utils/functions';
 import Error from '../Error/Error';
+import BattleCalculatorSpyImport from './BattleCalculatorSpyImport';
+import CustomTooltip from '../CustomTooltip/CustomTooltip';
 
 function BattleCalculator () {
   const [isWave, setIsWave] = useState(true);
 
+  // ship values are the same for attacking and defending
+  const shipValues = {
+    ksk: 990 + 100, // cannon development 10 * 10
+    ksg: 2454 + 100, // cannon development 10 * 10
+    kb: 7272 + 100, // cannon development 10 * 10
+    kbg: 12232 + 100, // cannon development 10 * 10
+    hb: 29356 + 100, // cannon development 10 * 10
+  };
   const attackValues = {
-    es: 9,
-    sp: 22 + 10, // spear development 10
-    bs: 46 + 10, // bow development 10
-    sk: 80 + 10, // sword development 10
+    ...{
+      es: 9,
+      sp: 22 + 10, // spear development 10
+      bs: 46 + 10, // bow development 10
+      sk: 80 + 10, // sword development 10
+    },
+    ...shipValues,
   };
   const defenseValues = {
-    es: 9 + 10, // defense development 10
-    sp: 22 + 6 + 10, // spear and defense development 10
-    bs: 46 + 10 + 10, // bow and defense development 10
-    sk: 80 + 10 + 10, // sword and defense development 10
+    ...{
+      es: 9 + 10, // defense development 10
+      sp: 22 + 6 + 10, // spear and defense development 10
+      bs: 46 + 10 + 10, // bow and defense development 10
+      sk: 80 + 10 + 10, // sword and defense development 10
+    },
+    ...shipValues,
+    ...{
+      al: 6972 + 100, // cannon development 10 * 10
+    },
   };
   const startUnits = { es: 0, sp: 0, bs: 0, sk: 0 };
   const [offenseUnits, setOffenseUnits] = useState(startUnits);
   const [defenseUnits, setDefenseUnits] = useState({
     ...startUnits,
     ...{ wt: 0, sm: 0, hh: 0 },
+  });
+  const startShipUnits = { ksk: 0, ksg: 0, kb: 0, kbg: 0, hb: 0 };
+  const [offenseShipUnits, setOffenseShipUnits] = useState(startShipUnits);
+  const [defenseShipUnits, setDefenseShipUnits] = useState({
+    ...startShipUnits,
+    ...{ al: 0 },
   });
   const [remainingUnits, setRemainingUnits] = useState(null);
   const [notWorking, setNotWorking] = useState(false);
@@ -81,7 +109,6 @@ function BattleCalculator () {
    * @returns {number}
    */
   const getBuildingValue = (level, multiplier) => {
-    console.log('getBuildingValue', level, multiplier);
     return 1 + ((level * multiplier) * level) + 50;
   };
 
@@ -258,6 +285,34 @@ function BattleCalculator () {
     calculateWaves();
   };
 
+  const handleShipChange = (event) => {
+    const { name, value } = event.target;
+    let parsedValue = parseInt(value);
+
+    if (name.includes('attack')) {
+      const newShips = {};
+      newShips[name.replace('attack', '')
+      .toLowerCase()] = parsedValue;
+
+      setOffenseShipUnits({ ...offenseShipUnits, ...newShips });
+    } else if (name.includes('defend')) {
+      const code = name.replace('defend', '')
+      .toLowerCase();
+
+      if (code === 'al') {
+        if (parsedValue > 20)
+          parsedValue = 20;
+        else if (parsedValue < 0)
+          parsedValue = 0;
+      }
+
+      const newShips = {};
+      newShips[code] = parsedValue;
+
+      setDefenseShipUnits({ ...defenseShipUnits, ...newShips });
+    }
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     let parsedValue = parseInt(value);
@@ -286,17 +341,29 @@ function BattleCalculator () {
     }
   };
 
+  const shipForm = [
+    { code: 'KSk', name: 'Kriegsschiffe (klein)', research: 'Kanonen Forschung 10' },
+    { code: 'KSg', name: 'Kriegsschiffe (groß)', research: 'Kanonen Forschung 10' },
+    { code: 'KB', name: 'Kanonenschiffe', research: 'Kanonen Forschung 10' },
+    { code: 'KBg', name: 'Kanonenschiffe (groß)', research: 'Kanonen Forschung 10' },
+    { code: 'HB', name: 'Hafenbrecher', research: 'Kanonen Forschung 10' },
+  ];
+
+  const defenseShipForm = shipForm.concat([
+    { code: 'AL', name: 'Auslieger', research: 'Kanonen Forschung 10' },
+  ]);
+
   const offenseForm = [
     { code: 'ES', name: 'Einfache Soldaten' },
-    { code: 'SP', name: 'Speerträger' },
-    { code: 'BS', name: 'Bogenschützen' },
-    { code: 'SK', name: 'Schwertkämpfer' },
+    { code: 'SP', name: 'Speerträger', research: 'Speer Forschung 10' },
+    { code: 'BS', name: 'Bogenschützen', research: 'Bogen Forschung 10' },
+    { code: 'SK', name: 'Schwertkämpfer', research: 'Schwert Forschung 10' },
   ];
 
   const defenseForm = [
-    { code: 'HH', name: 'Haupthaus' },
-    { code: 'SM', name: 'Steinmauer' },
-    { code: 'WT', name: 'Wachturm' },
+    { code: 'HH', name: 'Haupthaus', research: 'Abwehr Forschung 10' },
+    { code: 'SM', name: 'Steinmauer', research: 'Abwehr Forschung 10' },
+    { code: 'WT', name: 'Wachturm', research: 'Abwehr Forschung 10' },
   ].concat(offenseForm);
 
   return (
@@ -305,6 +372,39 @@ function BattleCalculator () {
         <Row>
           <Col sm={4}>
             <h3>Angreifer</h3>
+            <b>Seeschlacht</b>
+            {shipForm.map(offenseShipFormGroup => {
+              let value = offenseShipUnits[offenseShipFormGroup.code.toLowerCase()];
+              if (Number.isNaN(value)) // if the number is removed
+                value = '';
+
+              return (
+                <Form.Group as={Row} key={`OffenseShipKey${offenseShipFormGroup.code}`}>
+                  <Form.Label column sm={6}>{offenseShipFormGroup.name}</Form.Label>
+                  <Col sm={5}>
+                    <Form.Control
+                      onChange={handleShipChange}
+                      name={`attack${offenseShipFormGroup.code}`}
+                      size="sm"
+                      type="number"
+                      min="0"
+                      value={value}
+                      placeholder={offenseShipFormGroup.code}
+                    />
+                  </Col>
+                  <Col sm={1} style={{ paddingLeft: 0 }}>
+                    <CustomTooltip
+                      id={`OffenseShipKey${offenseShipFormGroup.code}`}
+                      text={offenseShipFormGroup.research}
+                    >
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                    </CustomTooltip>
+                  </Col>
+                </Form.Group>
+              );
+            })}
+            <div className="areaPlaceholder" />
+            <b>Landkampf</b>
             {offenseForm.map(offenseFormGroup => {
               let value = offenseUnits[offenseFormGroup.code.toLowerCase()];
               if (Number.isNaN(value)) // if the number is removed
@@ -313,7 +413,7 @@ function BattleCalculator () {
               return (
                 <Form.Group as={Row} key={`OffenseKey${offenseFormGroup.code}`}>
                   <Form.Label column sm={6}>{offenseFormGroup.name}</Form.Label>
-                  <Col sm={6}>
+                  <Col sm={5}>
                     <Form.Control
                       onChange={handleChange}
                       name={`attack${offenseFormGroup.code}`}
@@ -324,12 +424,54 @@ function BattleCalculator () {
                       placeholder={offenseFormGroup.code}
                     />
                   </Col>
+                  <Col sm={1} style={{ paddingLeft: 0 }}>
+                    {offenseFormGroup.research &&
+                    <CustomTooltip
+                      id={`OffenseKey${offenseFormGroup.code}`}
+                      text={offenseFormGroup.research}
+                    >
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                    </CustomTooltip>
+                    }
+                  </Col>
                 </Form.Group>
               );
             })}
           </Col>
           <Col sm={4}>
             <h3>Verteidiger</h3>
+            <b>Seeschlacht</b>
+            {defenseShipForm.map(defenseShipFormGroup => {
+              let value = defenseShipUnits[defenseShipFormGroup.code.toLowerCase()];
+              if (Number.isNaN(value)) // if the number is removed
+                value = '';
+
+              return (
+                <Form.Group as={Row} key={`DefenseKey${defenseShipFormGroup.code}`}>
+                  <Form.Label column sm={6}>{defenseShipFormGroup.name}</Form.Label>
+                  <Col sm={5}>
+                    <Form.Control
+                      onChange={handleShipChange}
+                      name={`defend${defenseShipFormGroup.code}`}
+                      size="sm"
+                      type="number"
+                      min="0"
+                      value={value}
+                      placeholder={defenseShipFormGroup.code}
+                    />
+                  </Col>
+                  <Col sm={1} style={{ paddingLeft: 0 }}>
+                    <CustomTooltip
+                      id={`DefenseShipKey${defenseShipFormGroup.code}`}
+                      text={defenseShipFormGroup.research}
+                    >
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                    </CustomTooltip>
+                  </Col>
+                </Form.Group>
+              );
+            })}
+            <b>Landkampf</b>
             {defenseForm.map(defenseFormGroup => {
               let value = defenseUnits[defenseFormGroup.code.toLowerCase()];
               if (Number.isNaN(value))
@@ -338,7 +480,7 @@ function BattleCalculator () {
               return (
                 <Form.Group as={Row} key={`DefenseKey${defenseFormGroup.code}`}>
                   <Form.Label column sm={6}>{defenseFormGroup.name}</Form.Label>
-                  <Col sm={6}>
+                  <Col sm={5}>
                     <Form.Control
                       onChange={handleChange}
                       name={`defend${defenseFormGroup.code}`}
@@ -348,6 +490,16 @@ function BattleCalculator () {
                       value={value}
                       placeholder={defenseFormGroup.code}
                     />
+                  </Col>
+                  <Col sm={1} style={{ paddingLeft: 0 }}>
+                    {defenseFormGroup.research &&
+                    <CustomTooltip
+                      id={`DefenseKey${defenseFormGroup.code}`}
+                      text={defenseFormGroup.research.includes('Abwehr') ? defenseFormGroup.research : `Abwehr und ${defenseFormGroup.research}`}
+                    >
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                    </CustomTooltip>
+                    }
                   </Col>
                 </Form.Group>
               );
@@ -407,6 +559,10 @@ function BattleCalculator () {
         <Button variant="dark" type="submit">
           Berechnen
         </Button>
+        <BattleCalculatorSpyImport
+          setDefenseUnits={setDefenseUnits}
+          setDefenseShipUnits={setDefenseShipUnits}
+        />
       </Form>
     </>
   );
