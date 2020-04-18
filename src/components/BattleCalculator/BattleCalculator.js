@@ -306,7 +306,7 @@ function BattleCalculator () {
             }
             {shipsNotWorking &&
             <Error
-              error={{ message: 'Mit den Angreifer See Einheiten kann der Verteidiger auf See nicht bezwungen werden' }}
+              error={{ message: 'Mit den Angreifer Schiffen kann der Verteidiger auf See nicht bezwungen werden' }}
               title="Kein Durchkommen auf See"
             />
             }
@@ -345,7 +345,7 @@ function BattleCalculator () {
             }
             {notWorking &&
             <Error
-              error={{ message: 'Mit den Angreifer Land Einheiten kann der Verteidiger am Land nicht bezwungen werden' }}
+              error={{ message: 'Mit den Angreifer Einheiten kann der Verteidiger am Land nicht bezwungen werden' }}
               title="Kein Durchkommen am Land"
             />
             }
