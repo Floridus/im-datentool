@@ -9,7 +9,6 @@ const worldReducer = (state = INITIAL_STATE, action) => {
 
   if (action.type === UPDATE_WORLD) {
     newState = { id: action.world };
-    console.log(newState);
     return { ...state, ...newState };
   } else {
     return state;

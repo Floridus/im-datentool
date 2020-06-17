@@ -26,8 +26,8 @@ function OceanContainer (props) {
         perPage: 100,
         page: ocean,
       },
+      world: world.id,
     },
-    world: world.id,
   });
   if (loading || getOceansCountQuery.loading) return <Loading />;
   if (error) return <Error error={error} />;
