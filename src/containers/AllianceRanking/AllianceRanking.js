@@ -1,21 +1,23 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { connect } from 'react-redux';
 
 import { getAlliances } from '../../apollo/queries';
 
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import AllianceRanking from '../../components/AllianceRanking/AllianceRanking';
-import { connect } from 'react-redux';
 
 function AllianceRankingContainer (props) {
-  const { allys } = props;
+  const { allys, world } = props;
+
   const { data, loading, error } = useQuery(getAlliances, {
     variables: {
       pagination: {
         perPage: 10000,
         page: 1,
       },
+      world: world.id,
     },
   });
   if (loading) return <Loading />;
@@ -29,8 +31,8 @@ function AllianceRankingContainer (props) {
 }
 
 const mapStateToProps = (state) => {
-  const { allys } = state;
-  return { allys };
+  const { allys, world } = state;
+  return { allys, world };
 };
 
 export default connect(mapStateToProps)(AllianceRankingContainer);

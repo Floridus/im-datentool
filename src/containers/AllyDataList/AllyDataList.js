@@ -11,12 +11,14 @@ import { randomBackgroundColor } from '../../utils/functions';
 import { addAllys } from '../../redux/actions';
 
 function AllyDataList (props) {
+  const { world } = props;
   const { data, loading, error } = useQuery(getAlliances, {
     variables: {
       pagination: {
         perPage: 10000,
         page: 1,
       },
+      world: world.id,
     },
   });
 
@@ -48,8 +50,8 @@ function AllyDataList (props) {
 }
 
 const mapStateToProps = (state) => {
-  const { allys } = state;
-  return { allys };
+  const { allys, world } = state;
+  return { allys, world };
 };
 
 const mapDispatchToProps = dispatch => (

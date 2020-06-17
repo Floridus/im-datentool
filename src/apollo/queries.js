@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const getIslands = gql`
-    query ($pagination: Pagination) {
-        islands(pagination: $pagination) {
+    query ($pagination: Pagination, $world: Int) {
+        islands(pagination: $pagination, world: $world) {
             id
             number
             name
@@ -47,8 +47,8 @@ export const getIslands = gql`
 `;
 
 export const getAlliances = gql`
-    query ($pagination: Pagination, $sorting: Sorting) {
-        alliances(pagination: $pagination, sorting: $sorting) {
+    query ($pagination: Pagination, $sorting: Sorting, $world: Int) {
+        alliances(pagination: $pagination, sorting: $sorting, world: $world) {
             id
             code
             name
@@ -65,8 +65,8 @@ export const getAlliances = gql`
 `;
 
 export const getAllianceChanges = gql`
-    query ($pagination: Pagination, $sorting: Sorting) {
-        allianceChanges(pagination: $pagination, sorting: $sorting) {
+    query ($pagination: Pagination, $sorting: Sorting, $world: Int) {
+        allianceChanges(pagination: $pagination, sorting: $sorting, world: $world) {
             id
             player {
                 id
@@ -88,8 +88,8 @@ export const getAllianceChanges = gql`
 `;
 
 export const getIslandChanges = gql`
-    query ($pagination: Pagination, $sorting: Sorting) {
-        islandChanges(pagination: $pagination, sorting: $sorting) {
+    query ($pagination: Pagination, $sorting: Sorting, $world: Int) {
+        islandChanges(pagination: $pagination, sorting: $sorting, world: $world) {
             id
             island {
                 id
@@ -117,7 +117,7 @@ export const getIslandChanges = gql`
 `;
 
 export const getOceansCount = gql`
-    query {
-        oceansCount
+    query ($world: Int) {
+        oceansCount(world: $world)
     }
 `;

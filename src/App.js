@@ -18,6 +18,7 @@ import OceanContainer from './containers/Ocean/Ocean';
 import ChangesContainer from './containers/Changes/Changes';
 import AllianceRankingContainer from './containers/AllianceRanking/AllianceRanking';
 import BattleCalculator from './components/BattleCalculator/BattleCalculator';
+import WorldChanger from './components/WorldChanger/WorldChanger';
 
 const store = createStore(reducer);
 
@@ -44,7 +45,7 @@ function App () {
                   <Link to="/battle-calculator" className="nav-link">Kampfrechner</Link>
                 </Nav>
               </Navbar.Collapse>
-              Welt 47
+              <WorldChanger />
             </Navbar>
             <div className="container">
               <AllyDataList />

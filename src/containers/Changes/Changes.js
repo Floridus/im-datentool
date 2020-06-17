@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { connect } from 'react-redux';
 
 import { getAllianceChanges, getIslandChanges } from '../../apollo/queries';
 
@@ -7,7 +8,8 @@ import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import Changes from '../../components/Changes/Changes';
 
-function ChangesContainer () {
+function ChangesContainer (props) {
+  const { world } = props;
   const { data, loading, error } = useQuery(getAllianceChanges, {
     variables: {
       pagination: {
@@ -18,6 +20,7 @@ function ChangesContainer () {
         field: 'createdAt',
         order: 'DESC',
       },
+      world: world.id,
     },
   });
   const getIslandChangesQuery = useQuery(getIslandChanges, {
@@ -30,6 +33,7 @@ function ChangesContainer () {
         field: 'createdAt',
         order: 'DESC',
       },
+      world: world.id,
     },
   });
   if (loading || getIslandChangesQuery.loading) return <Loading />;
@@ -44,4 +48,9 @@ function ChangesContainer () {
   );
 }
 
-export default ChangesContainer;
+const mapStateToProps = (state) => {
+  const { world } = state;
+  return { world };
+};
+
+export default connect(mapStateToProps)(ChangesContainer);

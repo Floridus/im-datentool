@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useQuery } from '@apollo/react-hooks';
+import { connect } from 'react-redux';
 
 import { getIslands, getOceansCount } from '../../apollo/queries';
 
@@ -8,12 +9,17 @@ import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import Ocean from '../../components/Ocean/Ocean';
 
-function OceanContainer () {
+function OceanContainer (props) {
   const { oce } = useParams();
+  const { world } = props;
 
   const [ocean, setOcean] = useState(oce ? parseInt(oce) : 1);
 
-  const getOceansCountQuery = useQuery(getOceansCount);
+  const getOceansCountQuery = useQuery(getOceansCount, {
+    variables: {
+      world: world.id,
+    },
+  });
   const { data, loading, error } = useQuery(getIslands, {
     variables: {
       pagination: {
@@ -21,6 +27,7 @@ function OceanContainer () {
         page: ocean,
       },
     },
+    world: world.id,
   });
   if (loading || getOceansCountQuery.loading) return <Loading />;
   if (error) return <Error error={error} />;
@@ -62,4 +69,9 @@ function OceanContainer () {
   );
 }
 
-export default OceanContainer;
+const mapStateToProps = (state) => {
+  const { allys, world } = state;
+  return { allys, world };
+};
+
+export default connect(mapStateToProps)(OceanContainer);
