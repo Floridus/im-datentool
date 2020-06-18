@@ -8,7 +8,7 @@ import { getAlliances } from '../../apollo/queries';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import { randomBackgroundColor } from '../../utils/functions';
-import { addAllys, resetAllys } from '../../redux/actions';
+import { addAllys } from '../../redux/actions';
 
 function AllyDataList (props) {
   const { world, allys } = props;
@@ -65,7 +65,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     addAllys,
-    resetAllys,
   }, dispatch)
 );
 
