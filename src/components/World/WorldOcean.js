@@ -10,6 +10,9 @@ function WorldOcean (props) {
   const [showInfo, setShowInfo] = useState(false);
   const allyList = allys.list;
 
+  if (!islands || (islands && islands.length === 0))
+    return null;
+
   const acObj = islands.reduce((obj, island) => {
     if (island.player.alliance) {
       const { alliance } = island.player;

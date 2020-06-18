@@ -1,7 +1,7 @@
 import { UPDATE_WORLD } from './constants';
 
 const INITIAL_STATE = {
-  id: 48,
+  id: 47,
 };
 
 const worldReducer = (state = INITIAL_STATE, action) => {

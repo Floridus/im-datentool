@@ -60,6 +60,10 @@ export const getAlliances = gql`
                 islandsIncrease
                 dailyDate
             }
+            world {
+              id
+              number
+            }
         }
     }
 `;

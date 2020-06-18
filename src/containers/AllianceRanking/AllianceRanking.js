@@ -20,7 +20,7 @@ function AllianceRankingContainer (props) {
       world: world.id,
     },
   });
-  if (loading) return <Loading />;
+  if (loading || allys.list.length === 0) return <Loading />;
   if (error) return <Error error={error} />;
 
   const { alliances } = data;
