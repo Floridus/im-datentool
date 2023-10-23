@@ -17,7 +17,7 @@ import AllyDataList from './containers/AllyDataList/AllyDataList';
 import OceanContainer from './containers/Ocean/Ocean';
 import ChangesContainer from './containers/Changes/Changes';
 import AllianceRankingContainer from './containers/AllianceRanking/AllianceRanking';
-import BattleCalculator from './components/BattleCalculator/BattleCalculator';
+// import BattleCalculator from './components/BattleCalculator/BattleCalculator';
 import WorldChanger from './components/WorldChanger/WorldChanger';
 
 const store = createStore(reducer);
@@ -42,7 +42,7 @@ function App () {
                   <Link to="/alliances" className="nav-link">Allianzen</Link>
                   <Link to="/players" className="nav-link">Spieler</Link>
                   <Link to="/changes" className="nav-link">Wechsel</Link>
-                  <Link to="/battle-calculator" className="nav-link">Kampfrechner</Link>
+                  {/*<Link to="/battle-calculator" className="nav-link">Kampfrechner</Link>*/}
                 </Nav>
               </Navbar.Collapse>
               <WorldChanger />
@@ -58,7 +58,7 @@ function App () {
                   <div>Coming soon</div>
                 </Route>
                 <Route path="/changes" exact><ChangesContainer /></Route>
-                <Route path="/battle-calculator" exact><BattleCalculator /></Route>
+                {/*<Route path="/battle-calculator" exact><BattleCalculator /></Route>*/}
               </Switch>
             </div>
             <Navbar className="footer-area">
