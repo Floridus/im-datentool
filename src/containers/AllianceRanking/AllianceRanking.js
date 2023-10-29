@@ -17,6 +17,10 @@ function AllianceRankingContainer (props) {
         perPage: 10000,
         page: 1,
       },
+      sorting: {
+        field: 'points',
+        order: 'DESC',
+      },
       world: world.id,
     },
   });
