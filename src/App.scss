@@ -5,6 +5,8 @@
   width: 1240px;
   margin: 20px auto;
   background-color: $areaBackgroundColor !important;
+  background-image: url('assets/images/im_content_back.jpg');
+  background-repeat: repeat;
   border-radius: 5px;
   padding: 20px;
   @extend .boxBasics;
@@ -23,6 +25,8 @@
 
 .navbar {
   background-color: $areaBackgroundColor;
+  background-image: url('assets/images/im_content_back.jpg');
+  background-repeat: repeat;
 }
 
 .navbar-brand, .nav-link {
@@ -36,6 +40,8 @@
 .dropdown-menu {
   min-width: auto !important;
   background-color: $areaBackgroundColor !important;
+  background-image: url('assets/images/im_content_back.jpg');
+  background-repeat: repeat;
 }
 
 .heart {
