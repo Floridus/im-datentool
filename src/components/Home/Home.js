@@ -11,7 +11,7 @@ function Home () {
       kommen in nächster Zeit.
       <br />
       <br />
-      Aktuell nur Welt 54. Das Tool wird alle 2 Stunden aktualisiert. (z.B. 00:03, 02:03, 04:03, ...
+      Aktuell nur Welt 54. Das Tool wird alle 6 Stunden aktualisiert. (z.B. 00:03, 06:03, 12:03, ...
       usw.)
     </>
   );
