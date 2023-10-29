@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './Changes.scss';
 import AllianceChanges from './AllianceChanges';
-import { connect } from 'react-redux';
 import IslandChanges from '../IslandChanges/IslandChanges';
 
 function Changes (props) {

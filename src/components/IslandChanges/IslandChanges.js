@@ -24,19 +24,19 @@ function IslandChanges (props) {
         </thead>
         <tbody>
         {islandChanges.map(islandChange => {
-          const ally = allyList.find(ally => islandChange.newOwner.alliance && ally.code === islandChange.newOwner.alliance.code);
+          const ally = allyList.find(ally => islandChange.ally_new && ally.code === islandChange.ally_new);
 
           return (
             <tr
-              key={`IslandChange${islandChange.id}`}
+              key={`IslandChange${islandChange.insel+islandChange.user_old}`}
               style={ally ? { backgroundColor: ally.color, color: 'white' } : {}}
             >
-              <td>{islandChange.island.number}</td>
-              <td>{text_truncate(islandChange.oldOwner.name, 14)}</td>
-              <td>{text_truncate(getAllyCode(islandChange.oldOwner.alliance, false), 14)}</td>
-              <td>{text_truncate(islandChange.newOwner.name, 14)}</td>
-              <td>{text_truncate(getAllyCode(islandChange.newOwner.alliance, false), 14)}</td>
-              <td>{moment(islandChange.createdAt)
+              <td>{islandChange.insel}</td>
+              <td>{text_truncate(islandChange.user_old, 14)}</td>
+              <td>{text_truncate(getAllyCode(islandChange.ally_old, false), 14)}</td>
+              <td>{text_truncate(islandChange.user_new, 14)}</td>
+              <td>{text_truncate(getAllyCode(islandChange.ally_new, false), 14)}</td>
+              <td>{moment(islandChange.timestamp)
               .format('DD.MM.YYYY HH:mm')}</td>
             </tr>
           );
