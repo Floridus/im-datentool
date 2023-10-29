@@ -34,7 +34,7 @@ function AllyDataList (props) {
   });
 
   const pushAllyColors = (alliances) => {
-    alliances.sort((a, b) => { return b.points - a.points;});
+    alliances.sort((a, b) => { return a.code.length - b.code.length;});
 
     const allyList = [];
     alliances.map(ally => {
