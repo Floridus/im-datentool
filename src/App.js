@@ -22,7 +22,7 @@ import WorldChanger from './components/WorldChanger/WorldChanger';
 
 const store = createStore(reducer);
 
-function App () {
+function App() {
   const client = new ApolloClient({
     uri: config.API_URL,
   });
@@ -47,25 +47,30 @@ function App () {
               </Navbar.Collapse>
               <WorldChanger />
             </Navbar>
-            <div className="container">
-              <AllyDataList />
-              <Switch>
-                <Route path="/" exact><Home /></Route>
-                <Route path="/world" exact><WorldContainer /></Route>
-                <Route path="/ocean/:oce?" exact><OceanContainer /></Route>
-                <Route path="/alliances" exact><AllianceRankingContainer /></Route>
-                <Route path="/players" exact>
-                  <div>Coming soon</div>
-                </Route>
-                <Route path="/changes" exact><ChangesContainer /></Route>
-                {/*<Route path="/battle-calculator" exact><BattleCalculator /></Route>*/}
-              </Switch>
-            </div>
-            <Navbar className="footer-area">
-              <Navbar.Text>
+            <div className="container p-0">
+              <div className="inner-container">
+                <AllyDataList />
+                <Switch>
+                  <Route path="/" exact><Home /></Route>
+                  <Route path="/world" exact><WorldContainer /></Route>
+                  <Route path="/ocean/:oce?" exact><OceanContainer /></Route>
+                  <Route path="/alliances" exact><AllianceRankingContainer /></Route>
+                  <Route path="/players" exact>
+                    <div>Coming soon</div>
+                  </Route>
+                  <Route path="/changes" exact><ChangesContainer /></Route>
+                  {/*<Route path="/battle-calculator" exact><BattleCalculator /></Route>*/}
+                </Switch>
+              </div>
+
+              <div className="footer-area">
+                <a href="https://www.insel-monarchie.de/" target="_blank">Insel-Monarchie</a>
+                <span className="mx-2">||</span>
+                <a href="https://forum.insel-monarchie.de/" target="_blank">Forum</a>
+                <span className="mx-2">||</span>
                 Made with <span className="heart">❤</span> in Austria by Floridus
-              </Navbar.Text>
-            </Navbar>
+              </div>
+            </div>
           </ApolloProvider>
         </Router>
       </Provider>

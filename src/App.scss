@@ -1,15 +1,18 @@
 @import './theme/Colors.scss';
 @import './theme/Helpers.scss';
 
-.container {
-  width: 1240px;
-  margin: 20px auto;
+.inner-container {
   background-color: $areaBackgroundColor !important;
   background-image: url('assets/images/im_content_back.jpg');
   background-repeat: repeat;
-  border-radius: 5px;
   padding: 20px;
+  border-radius: 5px;
   @extend .boxBasics;
+}
+
+.container {
+  width: 1024px;
+  margin: 20px auto;
   font-size: 14px;
 }
 
@@ -49,8 +52,22 @@
 }
 
 .footer-area {
-  border-top: 1px solid $black;
-  position: absolute !important;
-  bottom: 0;
+  color: #DFC9AA;
   width: 100%;
+  text-align: center;
+  background-image: url('assets/images/im_footer.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100px;
+  padding: 38px 0;
+
+  & a {
+    color: #DFC9AA;
+    &:hover {
+      text-decoration: underline !important;
+    }
+    &:visited {
+      color: #DFC9AA;
+    }
+  }
 }
