@@ -64,9 +64,11 @@ function App() {
               </div>
 
               <div className="footer-area">
-                <a href="https://www.insel-monarchie.de/" target="_blank">Insel-Monarchie</a>
+                <a href="https://www.insel-monarchie.de/" target="_blank"
+                   rel="noreferrer">Insel-Monarchie</a>
                 <span className="mx-2">||</span>
-                <a href="https://forum.insel-monarchie.de/" target="_blank">Forum</a>
+                <a href="https://forum.insel-monarchie.de/" target="_blank"
+                   rel="noreferrer">Forum</a>
                 <span className="mx-2">||</span>
                 Made with <span className="heart">❤</span> in Austria by Floridus
               </div>
