@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const getIslands = gql`
-    query ($pagination: Pagination, $world: Int) {
-        islands(pagination: $pagination, world: $world) {
+    query ($pagination: Pagination, $sorting: Sorting, $world: Int) {
+        islands(pagination: $pagination, sorting: $sorting, world: $world) {
             id
             number
             name

@@ -26,6 +26,10 @@ function OceanContainer (props) {
         perPage: 100,
         page: ocean,
       },
+      sorting: {
+        field: 'number',
+        order: 'ASC',
+      },
       world: world.id,
     },
   });
