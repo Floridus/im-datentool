@@ -16,6 +16,10 @@ function WorldContainer (props) {
         perPage: 1000000,
         page: 1,
       },
+      sorting: {
+        field: 'number',
+        order: 'ASC',
+      },
       world: world.id,
     },
   });
