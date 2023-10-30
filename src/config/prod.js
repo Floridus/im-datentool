@@ -1,5 +1,5 @@
 const config = {
-  API_URL: 'http://api.im-datentool.de/graphql',
+  API_URL: 'https://floridus.insel-monarchie.de/im-datatool-server/graphql',
 };
 
 export default config;
