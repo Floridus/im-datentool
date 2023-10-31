@@ -113,3 +113,13 @@ export function getNumberFormat (value, type = 'text') {
     decimalSeparator=","
   />;
 }
+
+export const getRightDirection = (value) => {
+  if (value > 0) {
+    return <i>(+{getNumberFormat(value)})</i>;
+  } else if (value < 0) {
+    return <i>({getNumberFormat(value)})</i>;
+  } else {
+    return <i>(0)</i>;
+  }
+};

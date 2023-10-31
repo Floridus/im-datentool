@@ -1,0 +1,18 @@
+@import '../../theme/Colors.scss';
+@import '../../theme/Helpers.scss';
+
+.pagination-header {
+  @extend .fillRowCenter;
+  @extend .mainSpaceBetween;
+  margin-bottom: 10px;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.pagination-header .dropdown-menu {
+  max-height: 400px;
+  overflow-x: auto;
+  left: -25px !important;
+}

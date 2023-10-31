@@ -19,6 +19,7 @@ import AllianceRankingContainer from './containers/AllianceRanking/AllianceRanki
 // import BattleCalculator from './components/BattleCalculator/BattleCalculator';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import PlayerRankingContainer from './containers/PlayerRanking/PlayerRanking';
 
 const store = createStore(reducer);
 
@@ -41,9 +42,7 @@ function App() {
                   <Route path="/world" exact><WorldContainer /></Route>
                   <Route path="/ocean/:oce?" exact><OceanContainer /></Route>
                   <Route path="/alliances" exact><AllianceRankingContainer /></Route>
-                  <Route path="/players" exact>
-                    <div>Coming soon</div>
-                  </Route>
+                  <Route path="/players" exact><PlayerRankingContainer /></Route>
                   <Route path="/changes" exact><ChangesContainer /></Route>
                   {/*<Route path="/battle-calculator" exact><BattleCalculator /></Route>*/}
                 </Switch>

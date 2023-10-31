@@ -2,25 +2,15 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 
 import './AllianceRanking.scss';
-import { getNumberFormat } from '../../utils/functions';
+import { getNumberFormat, getRightDirection } from '../../utils/functions';
 
 function AllianceRanking (props) {
   const { alliances, allyList } = props;
 
-  const getRightDirection = (value) => {
-    if (value > 0) {
-      return <i>(+{getNumberFormat(value)})</i>;
-    } else if (value < 0) {
-      return <i>({getNumberFormat(value)})</i>;
-    } else {
-      return <i>(0)</i>;
-    }
-  };
-
   return (
     <>
       <div className="ranking">
-        <b>Besten Allianzen</b><br />
+        <b>Allianz Rangliste</b><br />
         <i>Der Wert in der Klammer steht für den Zeitraum zwischen 00:00 bis 24:00 des aktuellen Tages</i>
         <Table striped hover responsive variant="dark">
           <thead>

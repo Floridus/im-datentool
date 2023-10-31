@@ -68,6 +68,29 @@ export const getAlliances = gql`
     }
 `;
 
+export const getPlayers = gql`
+    query ($pagination: Pagination, $sorting: Sorting, $world: Int) {
+        players(pagination: $pagination, sorting: $sorting, world: $world) {
+            id
+            name
+            points
+            islands {
+                id
+            }
+            playerPointsIncreases {
+                id
+                pointsIncrease
+                islandsIncrease
+                dailyDate
+            }
+            alliance {
+                id
+                code
+            }
+        }
+    }
+`;
+
 export const getAllianceChanges = gql`
     query ($pagination: Pagination, $sorting: Sorting, $world: Int) {
         allianceChanges(pagination: $pagination, sorting: $sorting, world: $world) {
@@ -123,5 +146,11 @@ export const getIslandChanges = gql`
 export const getOceansCount = gql`
     query ($world: Int) {
         oceansCount(world: $world)
+    }
+`;
+
+export const getPlayersCount = gql`
+    query ($world: Int, $perPage: Int) {
+        playersCount(world: $world, perPage: $perPage)
     }
 `;
