@@ -1,0 +1,26 @@
+@import '../../theme/Colors.scss';
+
+.header-area {
+  border-bottom: 1px solid $black;
+}
+
+.navbar {
+  background-color: $areaBackgroundColor;
+  background-image: url('../../assets/images/im_content_back.jpg');
+  background-repeat: repeat;
+}
+
+.navbar-brand, .nav-link {
+  color: $backgroundColor !important;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+.dropdown-menu {
+  min-width: auto !important;
+  background-color: $areaBackgroundColor !important;
+  background-image: url('../../assets/images/im_content_back.jpg');
+  background-repeat: repeat;
+}

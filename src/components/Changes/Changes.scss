@@ -8,10 +8,16 @@
 
 .changes-area {
   margin-top: 20px;
-  @extend .fillRow;
 
   & > div {
     flex: 1;
     margin: 5px;
+  }
+}
+
+@media (min-width: 992px) {
+  .changes-area {
+    display: flex;
+    flex-direction: row;
   }
 }

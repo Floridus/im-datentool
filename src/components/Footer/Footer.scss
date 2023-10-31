@@ -1,0 +1,29 @@
+@import '../../theme/Colors.scss';
+
+.footer-area {
+  color: #DFC9AA;
+  width: 100%;
+  text-align: center;
+  background-image: url('../../assets/images/im_footer.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100px;
+  padding: 38px 0;
+  font-size: 12px;
+
+  & a {
+    color: #DFC9AA;
+    &:hover {
+      text-decoration: underline !important;
+    }
+    &:visited {
+      color: #DFC9AA;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-area {
+    font-size: 14px;
+  }
+}

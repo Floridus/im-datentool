@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import { faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './Ocean.scss';
 import Island from './Island';
@@ -15,7 +17,8 @@ function Ocean (props) {
     <>
       <div className="ocean-header">
         <Button variant="dark" onClick={() => setOcean(ocean - 1)} disabled={ocean === 1}>
-          Vorheriger Ozean
+          <span className="d-none d-lg-block">Vorheriger Ozean</span>
+          <span className="d-lg-none"> <FontAwesomeIcon icon={faAngleDoubleLeft} /> </span>
         </Button>
         <DropdownButton
           id="select-ocean"
@@ -33,7 +36,8 @@ function Ocean (props) {
           }
         </DropdownButton>
         <Button variant="dark" onClick={() => setOcean(ocean + 1)} disabled={ocean === maxOcean}>
-          Nächster Ozean
+          <span className="d-none d-lg-block">Nächster Ozean</span>
+          <span className="d-lg-none"> <FontAwesomeIcon icon={faAngleDoubleRight} /> </span>
         </Button>
       </div>
       <div className="statistic-area">
