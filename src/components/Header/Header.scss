@@ -14,6 +14,10 @@
   color: $backgroundColor !important;
 }
 
+.navbar-nav {
+  width: 100%;
+}
+
 .nav-link:hover {
   opacity: 0.7;
 }
@@ -23,4 +27,10 @@
   background-color: $areaBackgroundColor !important;
   background-image: url('../../assets/images/im_content_back.jpg');
   background-repeat: repeat;
+}
+
+@media (min-width: 992px) {
+  .nav-item.dropdown {
+    margin-left: auto;
+  }
 }

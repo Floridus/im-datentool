@@ -10,7 +10,7 @@ const Header = () => {
       <Navbar.Brand href="/">IM Datentool</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav>
           <Nav.Link href="/world">Weltübersicht</Nav.Link>
           <Nav.Link href="/ocean">Ozeanübersicht</Nav.Link>
           <Nav.Link href="/alliances">Allianzen</Nav.Link>

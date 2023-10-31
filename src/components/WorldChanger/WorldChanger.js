@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { resetAllys, updateWorld } from '../../redux/actions';
 
-function WorldChanger (props) {
+function WorldChanger(props) {
   const { world } = props;
 
   const updateWorld = (world) => {
@@ -14,8 +14,9 @@ function WorldChanger (props) {
   };
 
   return (
-    <NavDropdown title={`Welt ${world.id}`} id="basic-nav-dropdown">
+    <NavDropdown title={`Welt ${world.id}`} id="basic-nav-dropdown" alignRight>
       <NavDropdown.Item onClick={() => updateWorld(54)}>Welt 54</NavDropdown.Item>
+      <NavDropdown.Item onClick={() => updateWorld(200)}>Planschbecken</NavDropdown.Item>
     </NavDropdown>
   );
 }
