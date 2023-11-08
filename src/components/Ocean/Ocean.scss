@@ -12,22 +12,23 @@
 }
 
 .ocean {
-  @extend .fillRow;
-  @extend .flexWrap;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 5px;
+  overflow: scroll;
 }
 
 .island-area {
   position: relative;
-  width: 80px;
-  height: 80px;
-  padding: 1px;
-  margin: 1px;
+  width: 100px;
+  height: 100px;
+  padding: 7px 5px;
+  font-size: 14px;
   border: 1px solid $black;
   border-radius: 5px;
   @extend .textCenter;
   cursor: default;
   overflow: hidden;
-  font-size: 12px;
 
   div {
     @extend .textOverflow;
@@ -65,13 +66,5 @@
   .statistic-area {
     display: flex;
     flex-direction: row;
-  }
-
-  .island-area {
-    width: 100px;
-    height: 100px;
-    padding: 7px 5px;
-    margin: 5px;
-    font-size: 14px;
   }
 }
