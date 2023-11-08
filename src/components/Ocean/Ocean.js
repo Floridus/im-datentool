@@ -8,7 +8,7 @@ import IslandChanges from '../IslandChanges/IslandChanges';
 import Pagination from '../Pagination/Pagination';
 
 function Ocean (props) {
-  const { islands, setOcean, ocean, allys, maxOcean, ranking, islandChanges } = props;
+  const { islands, setOcean, ocean, allys, maxOcean, ranking, islandChanges, timeRangeFrom } = props;
 
   return (
     <>
@@ -30,6 +30,7 @@ function Ocean (props) {
           return (
             <Island
               key={`Island#${island.id}`}
+              timeRangeFrom={timeRangeFrom}
               island={island}
               allyList={allys.list}
             />

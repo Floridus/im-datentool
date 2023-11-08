@@ -7,6 +7,7 @@ import { getIslands, getOceansCount } from '../../apollo/queries';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import TotalView from '../../components/TotalView/TotalView';
+import moment from 'moment/moment';
 
 const TotalViewContainer = (props) => {
   const { world } = props;
@@ -40,10 +41,12 @@ const TotalViewContainer = (props) => {
 
   const { islands } = data;
   const { oceansCount } = getOceansCountQuery.data;
+  const timeRangeFrom = moment().subtract(1, 'days');
 
   return (
     <TotalView
       islands={islands}
+      timeRangeFrom={timeRangeFrom}
       onLoadMore={async () => {
         if (page > oceansCount)
           return;

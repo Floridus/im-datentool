@@ -5,7 +5,7 @@ import '../Ocean/Ocean.scss';
 import Island from '../Ocean/Island';
 
 function TotalView(props) {
-  const { islands, onLoadMore, allys } = props;
+  const { islands, onLoadMore, allys, timeRangeFrom } = props;
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -26,6 +26,7 @@ function TotalView(props) {
         return (
           <Island
             key={`Island#${island.id}`}
+            timeRangeFrom={timeRangeFrom}
             island={island}
             allyList={allys.list}
           />

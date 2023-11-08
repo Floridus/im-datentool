@@ -8,6 +8,7 @@ import { getIslands, getOceansCount } from '../../apollo/queries';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import Ocean from '../../components/Ocean/Ocean';
+import moment from 'moment';
 
 function OceanContainer (props) {
   const { oce } = useParams();
@@ -39,6 +40,7 @@ function OceanContainer (props) {
 
   const { islands } = data;
   const { oceansCount } = getOceansCountQuery.data;
+  const timeRangeFrom = moment().subtract(1, 'days');
 
   const ranking = [];
   let islandChanges = [];
@@ -68,6 +70,7 @@ function OceanContainer (props) {
       setOcean={setOcean}
       maxOcean={oceansCount}
       ranking={ranking.slice(0, 10)}
+      timeRangeFrom={timeRangeFrom}
       islandChanges={islandChanges.slice(0, 10)}
     />
   );
