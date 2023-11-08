@@ -2,16 +2,16 @@ import { areTheseObjectsEqual } from './functions';
 import { checkIfUnitsAreDead, setAllUnitsToZero } from './warFunctions';
 
 const attackValues = {
-  es: 9,
-  sp: 22 + 10, // spear development 10
-  bs: 46 + 10, // bow development 10
-  sk: 80 + 10, // sword development 10
+  es: 7, // random value between 7 and 11
+  sp: 20 + 10, // spear development 10 + random value between 20 and 24
+  bs: 44 + 10, // bow development 10 + random value between 44 and 48
+  sk: 78 + 10, // sword development 10 + random value between 78 and 82
 };
 const defenseValues = {
-  es: 9 + 10, // defense development 10
-  sp: 22 + 6 + 10, // spear and defense development 10
-  bs: 46 + 10 + 10, // bow and defense development 10
-  sk: 80 + 10 + 10, // sword and defense development 10
+  es: 11 + 10, // defense development 10 + random value between 7 and 11
+  sp: 24 + 10 + 10, // spear and defense development 10 + random value between 20 and 24
+  bs: 48 + 10 + 10, // bow and defense development 10 + random value between 44 and 48
+  sk: 82 + 10 + 10, // sword and defense development 10 + random value between 78 and 82
 };
 
 /**

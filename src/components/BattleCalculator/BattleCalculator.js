@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Form, Row, Table } from 'react-bootstrap';
+import { Alert, Button, Col, Form, Row, Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,7 +10,7 @@ import Error from '../Error/Error';
 import BattleCalculatorSpyImport from './BattleCalculatorSpyImport';
 import CustomTooltip from '../CustomTooltip/CustomTooltip';
 
-function BattleCalculator () {
+function BattleCalculator() {
   const [isWave, setIsWave] = useState(true);
 
   const startUnits = { es: 0, sp: 0, bs: 0, sk: 0 };
@@ -193,12 +193,12 @@ function BattleCalculator () {
                   </Col>
                   <Col sm={1} style={{ paddingLeft: 0 }}>
                     {offenseFormGroup.research &&
-                    <CustomTooltip
-                      id={`OffenseKey${offenseFormGroup.code}`}
-                      text={offenseFormGroup.research}
-                    >
-                      <FontAwesomeIcon icon={faInfoCircle} />
-                    </CustomTooltip>
+                      <CustomTooltip
+                        id={`OffenseKey${offenseFormGroup.code}`}
+                        text={offenseFormGroup.research}
+                      >
+                        <FontAwesomeIcon icon={faInfoCircle} />
+                      </CustomTooltip>
                     }
                   </Col>
                 </Form.Group>
@@ -277,12 +277,12 @@ function BattleCalculator () {
                   </Col>
                   <Col sm={1} style={{ paddingLeft: 0 }}>
                     {defenseFormGroup.research &&
-                    <CustomTooltip
-                      id={`DefenseKey${defenseFormGroup.code}`}
-                      text={defenseFormGroup.research.includes('Abwehr') ? defenseFormGroup.research : `Abwehr und ${defenseFormGroup.research}`}
-                    >
-                      <FontAwesomeIcon icon={faInfoCircle} />
-                    </CustomTooltip>
+                      <CustomTooltip
+                        id={`DefenseKey${defenseFormGroup.code}`}
+                        text={defenseFormGroup.research.includes('Abwehr') ? defenseFormGroup.research : `Abwehr und ${defenseFormGroup.research}`}
+                      >
+                        <FontAwesomeIcon icon={faInfoCircle} />
+                      </CustomTooltip>
                     }
                   </Col>
                 </Form.Group>
@@ -298,84 +298,100 @@ function BattleCalculator () {
           </Col>
           <Col sm={4}>
             {remainingShips &&
-            <>
-              <b>Seeschlacht</b>
-              <Table striped bordered hover size="sm">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>KSk</th>
-                  <th>KSg</th>
-                  <th>KB</th>
-                  <th>KBg</th>
-                  <th>HB</th>
-                  <th>AL</th>
-                </tr>
-                </thead>
-                <tbody>
-                {remainingShips.map((remainingShipsWave, index) =>
-                  <tr key={`remainingWave${index}`}>
-                    <td>{index + 1}.</td>
-                    <td>{remainingShipsWave.ksk}</td>
-                    <td>{remainingShipsWave.ksg}</td>
-                    <td>{remainingShipsWave.kb}</td>
-                    <td>{remainingShipsWave.kbg}</td>
-                    <td>{remainingShipsWave.hb}</td>
-                    <td>{remainingShipsWave.al}</td>
-                  </tr>,
-                )}
-                </tbody>
-              </Table>
-            </>
+              <>
+                <b>Seeschlacht</b>
+                <Table striped bordered hover size="sm">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>KSk</th>
+                    <th>KSg</th>
+                    <th>KB</th>
+                    <th>KBg</th>
+                    <th>HB</th>
+                    <th>AL</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {remainingShips.map((remainingShipsWave, index) =>
+                    <tr key={`remainingWave${index}`}>
+                      <td>{index + 1}.</td>
+                      <td>{remainingShipsWave.ksk}</td>
+                      <td>{remainingShipsWave.ksg}</td>
+                      <td>{remainingShipsWave.kb}</td>
+                      <td>{remainingShipsWave.kbg}</td>
+                      <td>{remainingShipsWave.hb}</td>
+                      <td>{remainingShipsWave.al}</td>
+                    </tr>,
+                  )}
+                  </tbody>
+                </Table>
+              </>
             }
             {shipsNotWorking &&
-            <Error
-              error={{ message: 'Mit den Angreifer Schiffen kann der Verteidiger auf See nicht bezwungen werden' }}
-              title="Kein Durchkommen auf See"
-            />
+              <Error
+                error={{ message: 'Mit den Angreifer Schiffen kann der Verteidiger auf See nicht bezwungen werden' }}
+                title="Kein Durchkommen auf See"
+              />
             }
             {remainingUnits &&
-            <>
-              <b>Landkampf</b>
-              <Table striped bordered hover size="sm">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>HH</th>
-                  <th>SM</th>
-                  <th>WT</th>
-                  <th>ES</th>
-                  <th>SP</th>
-                  <th>BS</th>
-                  <th>SK</th>
-                </tr>
-                </thead>
-                <tbody>
-                {remainingUnits.map((remainingUnitsWave, index) =>
-                  <tr key={`remainingWave${index}`}>
-                    <td>{index + 1}.</td>
-                    <td>{remainingUnitsWave.hh}</td>
-                    <td>{remainingUnitsWave.sm}</td>
-                    <td>{remainingUnitsWave.wt}</td>
-                    <td>{remainingUnitsWave.es}</td>
-                    <td>{remainingUnitsWave.sp}</td>
-                    <td>{remainingUnitsWave.bs}</td>
-                    <td>{remainingUnitsWave.sk}</td>
-                  </tr>,
-                )}
-                </tbody>
-              </Table>
-            </>
+              <>
+                <b>Landkampf</b>
+                <Table striped bordered hover size="sm">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>HH</th>
+                    <th>SM</th>
+                    <th>WT</th>
+                    <th>ES</th>
+                    <th>SP</th>
+                    <th>BS</th>
+                    <th>SK</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {remainingUnits.map((remainingUnitsWave, index) =>
+                    <tr key={`remainingWave${index}`}>
+                      <td>{index + 1}.</td>
+                      <td>{remainingUnitsWave.hh}</td>
+                      <td>{remainingUnitsWave.sm}</td>
+                      <td>{remainingUnitsWave.wt}</td>
+                      <td>{remainingUnitsWave.es}</td>
+                      <td>{remainingUnitsWave.sp}</td>
+                      <td>{remainingUnitsWave.bs}</td>
+                      <td>{remainingUnitsWave.sk}</td>
+                    </tr>,
+                  )}
+                  </tbody>
+                </Table>
+              </>
             }
             {notWorking &&
-            <Error
-              error={{ message: 'Mit den Angreifer Einheiten kann der Verteidiger am Land nicht bezwungen werden' }}
-              title="Kein Durchkommen am Land"
-            />
+              <Error
+                error={{ message: 'Mit den Angreifer Einheiten kann der Verteidiger am Land nicht bezwungen werden' }}
+                title="Kein Durchkommen am Land"
+              />
             }
           </Col>
         </Row>
       </Form>
+      <br />
+      <Alert variant="primary">
+        <Alert.Heading>
+          Kampfwert-Anpassungen
+        </Alert.Heading>
+        <p>
+          Bitte beachtet folgende Kampfwert-Anpassungen, die somit den Kampfwert einer Einheit ins
+          negative als auch ins positive verändern kann. Hier im Kampfrechner wurde immer der negativste
+          Kampfwert genutzt. Um ein Worst-Case-Szenario zu simulieren. Das bedeutet im Angriff der schwächste Wert und in der Verteidigung der beste Wert.<br />
+          <br />
+          {offenseForm[0].name} +- 20%<br />
+          {offenseForm[1].name} +- 10%<br />
+          {offenseForm[2].name} +- 5%<br />
+          {offenseForm[3].name} +- 2%
+        </p>
+      </Alert>
     </>
   );
 }

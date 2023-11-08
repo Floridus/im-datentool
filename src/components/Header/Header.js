@@ -16,7 +16,7 @@ const Header = () => {
           <Nav.Link href="/alliances">Allianzen</Nav.Link>
           <Nav.Link href="/players">Spieler</Nav.Link>
           <Nav.Link href="/changes">Wechsel</Nav.Link>
-          {/*<Nav.Link href="/battle-calculator">Kampfrechner</Nav.Link>*/}
+          <Nav.Link href="/battle-calculator">Kampfrechner</Nav.Link>
           <WorldChanger />
         </Nav>
       </Navbar.Collapse>
