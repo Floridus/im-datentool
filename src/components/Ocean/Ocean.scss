@@ -15,7 +15,7 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-gap: 5px;
-  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .island-area {
@@ -66,5 +66,9 @@
   .statistic-area {
     display: flex;
     flex-direction: row;
+  }
+
+  .ocean {
+    overflow-x: hidden;
   }
 }
