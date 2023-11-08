@@ -13,6 +13,7 @@ const Header = () => {
         <Nav>
           <Nav.Link href="/world">Weltübersicht</Nav.Link>
           <Nav.Link href="/ocean">Ozeanübersicht</Nav.Link>
+          <Nav.Link href="/total-view">Gesamtansicht</Nav.Link>
           <Nav.Link href="/alliances">Allianzen</Nav.Link>
           <Nav.Link href="/players">Spieler</Nav.Link>
           <Nav.Link href="/changes">Wechsel</Nav.Link>

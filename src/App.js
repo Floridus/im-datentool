@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -20,12 +20,17 @@ import BattleCalculator from './components/BattleCalculator/BattleCalculator';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import PlayerRankingContainer from './containers/PlayerRanking/PlayerRanking';
+import TotalViewContainer from './containers/TotalView/TotalView';
 
 const store = createStore(reducer);
 
 function App() {
+  const link = new HttpLink({ uri: config.API_URL });
+  const cache = new InMemoryCache();
+
   const client = new ApolloClient({
-    uri: config.API_URL,
+    link,
+    cache,
   });
 
   return (
@@ -45,6 +50,7 @@ function App() {
                   <Route path="/players" exact><PlayerRankingContainer /></Route>
                   <Route path="/changes" exact><ChangesContainer /></Route>
                   <Route path="/battle-calculator" exact><BattleCalculator /></Route>
+                  <Route path="/total-view" exact><TotalViewContainer /></Route>
                 </Switch>
               </div>
 

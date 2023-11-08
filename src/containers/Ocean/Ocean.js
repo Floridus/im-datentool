@@ -74,8 +74,8 @@ function OceanContainer (props) {
 }
 
 const mapStateToProps = (state) => {
-  const { allys, world } = state;
-  return { allys, world };
+  const { world } = state;
+  return { world };
 };
 
 export default connect(mapStateToProps)(OceanContainer);
