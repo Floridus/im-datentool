@@ -16,6 +16,7 @@ function WorldChanger(props) {
   return (
     <NavDropdown title={`Welt ${world.id}`} id="basic-nav-dropdown" alignRight>
       <NavDropdown.Item onClick={() => updateWorld(54)}>Welt 54</NavDropdown.Item>
+      <NavDropdown.Item onClick={() => updateWorld(55)}>Welt 55</NavDropdown.Item>
       <NavDropdown.Item onClick={() => updateWorld(200)}>Planschbecken</NavDropdown.Item>
     </NavDropdown>
   );

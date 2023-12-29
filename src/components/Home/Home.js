@@ -15,6 +15,7 @@ function Home() {
       aktualisiert.<br />
       Welt 54 (00:03, 06:03, ...)<br />
       Planschbecken (00:05, 06:05, ...)
+      Welt 55 (00:07, 06:07, ...)<br />
     </>
   );
 }
